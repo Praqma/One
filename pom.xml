@@ -58,8 +58,8 @@
     </licenses>
     
     <scm>
-        <connection>scm:git:http://github.com/Praqma/RqmPlugin.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:Praqma/RqmPlugin.git</developerConnection>
-        <url>https://github.com/Praqma/RqmPlugin.git</url>
+        <connection>scm:git:http://github.com/Praqma/One.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Praqma/One.git</developerConnection>
+        <url>https://github.com/Praqma/One.git</url>
     </scm>
 </project>
