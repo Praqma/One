@@ -1,0 +1,8 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
+    <l:layout title="RQM Test results">
+        <l:main-panel>
+            <h3>One Project Action - Index (Used when clicking the link)</h3>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>   
