@@ -25,11 +25,27 @@ package net.praqma.jenkins.one.actions;
 
 import hudson.model.Action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Praqma
  */
 public class OneBuildAction implements Action {
+
+    public List<String> messages = new ArrayList<String>();
+
+    public OneBuildAction() {
+    }
+
+    public void addMessage( String message ) {
+        messages.add( message );
+    }
+
+    public List<String> getMessages() {
+        return messages;
+    }
 
     @Override
     public String getIconFileName() {
@@ -45,5 +61,6 @@ public class OneBuildAction implements Action {
     public String getUrlName() {
         return "onebuildaction";
     }
+
 
 }

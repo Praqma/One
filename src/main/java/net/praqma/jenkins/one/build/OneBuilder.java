@@ -32,6 +32,10 @@ import hudson.model.BuildListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+
+import net.praqma.jenkins.one.actions.OneBuildAction;
 import net.praqma.jenkins.one.actions.OneProjectAction;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -42,24 +46,34 @@ import org.kohsuke.stapler.StaplerRequest;
  * @author Praqma
  */
 public class OneBuilder extends Builder {
-    
-    @DataBoundConstructor
-    public OneBuilder() {}
 
-    @Override
-    public Action getProjectAction(AbstractProject<?, ?> project) {
-        return new OneProjectAction(project);
+    public final String message;
+
+    @DataBoundConstructor
+    public OneBuilder( String message ) {
+        this.message = message;
     }
 
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
         listener.getLogger().println("In Build - OneBuilder");
+
+        String str = build.getWorkspace().act( new RemoteOperation() );
+
+        OneBuildAction action = build.getAction( OneBuildAction.class );
+        if( action == null ) {
+            action = new OneBuildAction();
+            build.addAction( action );
+        }
+
+        String msg = "[" + str + "] " + message;
+        action.addMessage( msg );
+        listener.getLogger().println( "Added message: " + msg );
+
         return true;
     }
-    
-    
 
-    
+
     @Extension
     public static class Descriptor extends BuildStepDescriptor<Builder> {
 

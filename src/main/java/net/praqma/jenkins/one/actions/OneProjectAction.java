@@ -23,9 +23,9 @@
  */
 package net.praqma.jenkins.one.actions;
 
-import hudson.model.AbstractProject;
-import hudson.model.Actionable;
-import hudson.model.ProminentProjectAction;
+import hudson.model.*;
+
+import java.util.List;
 
 /**
  *
@@ -38,7 +38,12 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
     public OneProjectAction(AbstractProject<?,?> project) {
         this.project = project;
     }
-    
+
+    @Override
+    public synchronized List<Action> getActions() {
+        return super.getActions();
+    }
+
     @Override
     public String getDisplayName() {
         return "One project action";
@@ -57,6 +62,17 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
     @Override
     public String getUrlName() {
         return "oneprojectaction";
+    }
+
+    public OneBuildAction getLastAction() {
+        for( AbstractBuild<?, ?> b = project.getLastCompletedBuild() ; b != null ; b = b.getPreviousBuild() ) {
+            OneBuildAction action = b.getAction( OneBuildAction.class );
+            if( action != null ) {
+                return action;
+            }
+        }
+
+        return null;
     }
 
 }

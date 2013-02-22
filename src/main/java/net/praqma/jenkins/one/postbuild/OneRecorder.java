@@ -27,12 +27,18 @@ import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
+import hudson.model.Action;
 import hudson.model.BuildListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
 import hudson.tasks.Recorder;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+
+import net.praqma.jenkins.one.actions.OneBuildAction;
+import net.praqma.jenkins.one.actions.OneProjectAction;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 
@@ -41,6 +47,8 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * @author Praqma
  */
 public class OneRecorder extends Recorder {
+
+
 
     @DataBoundConstructor
     public OneRecorder() {} 
@@ -55,9 +63,19 @@ public class OneRecorder extends Recorder {
         listener.getLogger().println("In PostBuild - OneRecorder");
         return true;
     }
-    
-    
-    
+
+    @Override
+    public boolean prebuild( AbstractBuild<?, ?> build, BuildListener listener ) {
+        listener.getLogger().println("In PreBuild - OneRecorder");
+
+        return true;
+    }
+
+    @Override
+    public Collection<? extends Action> getProjectActions( AbstractProject<?, ?> project ) {
+        return Collections.singletonList( new OneProjectAction( project ) );
+    }
+
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
 
