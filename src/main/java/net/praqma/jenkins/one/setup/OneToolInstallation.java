@@ -49,6 +49,10 @@ public class OneToolInstallation extends ToolInstallation {
         public String getDisplayName() {
             return "One ToolInstallation";
         }
+
+        public DescriptorImpl () {
+            load();
+        }
         
     }
 }
