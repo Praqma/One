@@ -48,17 +48,24 @@ import org.kohsuke.stapler.StaplerRequest;
 public class OneBuilder extends Builder {
 
     public final String message;
+    public final boolean remoteOperation;
 
     @DataBoundConstructor
-    public OneBuilder( String message ) {
+    public OneBuilder( String message, boolean remoteOperation ) {
         this.message = message;
+        this.remoteOperation = remoteOperation;
     }
 
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
         listener.getLogger().println("In Build - OneBuilder");
 
-        String str = build.getWorkspace().act( new RemoteOperation() );
+        String[] str = null;
+        if( remoteOperation ) {
+            str = build.getWorkspace().act( new RemoteOperation() );
+        } else {
+            str = new RemoteOperation().invoke( null, null );
+        }
 
         OneBuildAction action = build.getAction( OneBuildAction.class );
         if( action == null ) {
@@ -66,9 +73,8 @@ public class OneBuilder extends Builder {
             build.addAction( action );
         }
 
-        String msg = "[" + str + "] " + message;
-        action.addMessage( msg );
-        listener.getLogger().println( "Added message: " + msg );
+        action.addItems( str[0], str[1], message );
+        listener.getLogger().println( "Added items" );
 
         return true;
     }

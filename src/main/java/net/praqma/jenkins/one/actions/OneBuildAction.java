@@ -34,17 +34,34 @@ import java.util.List;
  */
 public class OneBuildAction implements Action {
 
-    public List<String> messages = new ArrayList<String>();
+    public static class Items {
+        public String os;
+        public String string;
+        public String message;
+
+        public Items( String os, String string, String message ) {
+            this.os = os;
+            this.string = string;
+            this.message = message;
+        }
+
+        @Override
+        public String toString() {
+            return "OS: " + os + ", String: " + string + ", Message: " + message;
+        }
+    }
+
+    public List<Items> items = new ArrayList<Items>();
 
     public OneBuildAction() {
     }
 
-    public void addMessage( String message ) {
-        messages.add( message );
+    public void addItems( String os, String string, String message ) {
+        items.add( new Items( os, string, message ) );
     }
 
-    public List<String> getMessages() {
-        return messages;
+    public List<Items> getItems() {
+        return items;
     }
 
     @Override

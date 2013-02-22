@@ -23,8 +23,10 @@
  */
 package net.praqma.jenkins.one.actions;
 
+
 import hudson.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +58,7 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
 
     @Override
     public String getIconFileName() {
-        return null;
+        return "/plugin/one-plugin/images/64x64/one-icon.png";
     }
 
     @Override
@@ -73,6 +75,23 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
         }
 
         return null;
+    }
+
+    public List<List<OneBuildAction.Items>> getItems( int number ) {
+        List<List<OneBuildAction.Items>> list = new ArrayList<List<OneBuildAction.Items>>( number );
+
+        for( AbstractBuild<?, ?> b = project.getLastCompletedBuild() ; b != null ; b = b.getPreviousBuild() ) {
+            OneBuildAction action = b.getAction( OneBuildAction.class );
+            if( action != null ) {
+                list.add( action.getItems() );
+
+                if( list.size() == number ) {
+                    return list;
+                }
+            }
+        }
+
+        return list;
     }
 
 }

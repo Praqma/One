@@ -4,4 +4,8 @@
          <f:entry field="message" title="Message">
              <f:textbox />
          </f:entry>
+
+        <f:entry field="remoteOperation" title="Perform on slave">
+             <f:checkbox />
+        </f:entry>
 </j:jelly>    

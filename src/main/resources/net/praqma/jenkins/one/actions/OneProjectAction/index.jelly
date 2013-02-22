@@ -1,8 +1,18 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
-    <l:layout title="RQM Test results">
+    <l:layout title="One Project Page">
+        <l:side-panel>
+            <l:tasks>
+                <l:task icon="images/24x24/up.gif" href="../"
+                        title="${%Back to Project}" />
+            </l:tasks>
+        </l:side-panel>
         <l:main-panel>
             <h3>One Project Action - Index (Used when clicking the link)</h3>
+            <j:forEach items="${it.getItems(2)}" var="i">
+                ${i}
+                <br />
+            </j:forEach>
         </l:main-panel>
     </l:layout>
 </j:jelly>   
