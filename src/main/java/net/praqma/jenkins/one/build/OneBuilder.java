@@ -67,8 +67,8 @@ public class OneBuilder extends Builder {
      * builder should indicate whether to execute the next build step in the list.
      * 
      * @param build the current build
-     * @param launcher
-     * @param listener
+     * @param launcher the current launcher
+     * @param listener the build listener
      * @return a boolean indicating wheather to proceed with the next buildstep
      * @throws InterruptedException
      * @throws IOException 

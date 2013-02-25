@@ -30,6 +30,7 @@ import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Action;
 import hudson.model.BuildListener;
+import hudson.model.Result;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
@@ -37,6 +38,7 @@ import hudson.tasks.Recorder;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import net.praqma.jenkins.one.actions.OneBuildAction;
 import net.praqma.jenkins.one.actions.OneProjectAction;
 import org.kohsuke.stapler.DataBoundConstructor;
 
@@ -47,11 +49,17 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * 
  * Publisher are BuildSteps performed in the PostBuild phase, they are designed for reporting.
  * Build steps usually involves build and compile, and maybe some rudimentary smoke test of your software.
- * Then in the post build phase you're more likely to perform static analysis of your source code, check for coverage and maybe compiler warnings. 
+ * Then in the post build phase you're more likely to perform static analysis of your source code, check for coverage and maybe compiler warnings.
+ * 
+ * Our example demonstrates in a very simple way how the PostBuild step can be used to set the overall result of a given build.
+ * 
+ * Our example recorder requires the user to enter a string, that must be contained as a part build steps in order to be consideres stable.
  * 
  * @author Praqma
  */
 public class OneRecorder extends Recorder {
+    
+    public final String requiredText;
 
 
     /**
@@ -61,17 +69,20 @@ public class OneRecorder extends Recorder {
      * 
      */
     @DataBoundConstructor
-    public OneRecorder() {} 
+    public OneRecorder(final String requiredText) {
+        this.requiredText = requiredText;
+    } 
     
     @Override
     public BuildStepMonitor getRequiredMonitorService() {
-        return BuildStepMonitor.BUILD;
+        return BuildStepMonitor.NONE;
     }
-
     
     /**
      * Performs the required operations for this build step. The method should generally return true. If some critcal error arises such as
-     * not being able to open a required file, it is much better to abort the pipeline by throwing an {@link AbortException}. 
+     * not being able to open a required file, it is much better to abort the pipeline by throwing an {@link AbortException}.
+     * 
+     * 
      * 
      * @param build
      * @param launcher
@@ -84,6 +95,22 @@ public class OneRecorder extends Recorder {
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
                 
         listener.getLogger().println("In PostBuild - OneRecorder");
+        
+        OneBuildAction oba = build.getAction(OneBuildAction.class);
+        boolean stable = false;
+        for(OneBuildAction.Items item : oba.items) {
+            if(item.message.contains(requiredText)) {
+                stable = true;
+            }
+        }
+        if(stable) {
+            listener.getLogger().println(String.format("The message \"%s\" was present in the result setting build to stable", requiredText));
+            build.setResult(Result.SUCCESS);
+        } else {
+            listener.getLogger().println(String.format("The message \"%s\" was not present in the result setting build to stable", requiredText));
+            build.setResult(Result.UNSTABLE);
+        }
+        
         return true;
     }
 
@@ -125,6 +152,11 @@ public class OneRecorder extends Recorder {
             return true;
         }
 
+        /**
+         * Required method. Needs to be overriden.
+         * 
+         * @return the name to be display in the describable list
+         */
         @Override
         public String getDisplayName() {
             return "One Project Recorder";
