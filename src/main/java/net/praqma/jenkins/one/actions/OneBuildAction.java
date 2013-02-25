@@ -24,16 +24,25 @@
 package net.praqma.jenkins.one.actions;
 
 import hudson.model.Action;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
+ * A class representing an action performed in a build step. These actions are added, and builds can contain 
+ * multiple actions of the same type, these build can contain buisness logic, data etc. 
+ * 
+ * This data can the be extracted for use in the various views that Jenkins offers.
+ * 
+ * In our example we will re-use the same action through the entire build pipeline.
+ * 
  * @author Praqma
  */
 public class OneBuildAction implements Action {
 
+    /**
+     * Small data class used to store data we collect from our slaves.
+     */
     public static class Items {
         public String os;
         public String string;
@@ -64,6 +73,10 @@ public class OneBuildAction implements Action {
         return items;
     }
 
+    /**
+     * 
+     * @return the path to the icon file to be used by jenkins. If null, no link will be generated
+     */
     @Override
     public String getIconFileName() {
         return null;

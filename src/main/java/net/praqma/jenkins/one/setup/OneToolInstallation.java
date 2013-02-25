@@ -51,6 +51,7 @@ public class OneToolInstallation extends ToolInstallation {
         }
 
         public DescriptorImpl () {
+            super();
             load();
         }
         

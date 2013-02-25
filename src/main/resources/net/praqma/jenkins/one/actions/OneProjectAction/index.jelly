@@ -9,6 +9,7 @@
         </l:side-panel>
         <l:main-panel>
             <h3>One Project Action - Index (Used when clicking the link)</h3>
+            <!-- Get data from the last 2 execution -->
             <j:forEach items="${it.getItems(2)}" var="i">
                 ${i}
                 <br />

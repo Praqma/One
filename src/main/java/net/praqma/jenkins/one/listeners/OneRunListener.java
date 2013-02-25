@@ -4,10 +4,15 @@ import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.*;
 import hudson.model.listeners.RunListener;
-
 import java.io.IOException;
 
 /**
+ * 
+ * A run listener that looks for builds started across an entire Jenkins instance. The run listener is a singleton,
+ * and there is exactly one run listener of each type associated with a given jenkins instance.
+ * 
+ * This is extremely useful for writing a plugin that monitors usage of a given plugin for example. 
+ * 
  * @author cwolfgang
  *         Date: 22-02-13
  *         Time: 10:15
@@ -15,16 +20,34 @@ import java.io.IOException;
 @Extension
 public class OneRunListener extends RunListener<Run> {
 
+    /**
+     * @param run
+     * @param listener 
+     */
     @Override
     public void onStarted( Run run, TaskListener listener ) {
-        listener.getLogger().println( "One Run Listener - OnStarted" );
+        listener.getLogger().println( "One Run Listener - OnStarted" );        
     }
 
+    /**
+     * 
+     * @param run
+     * @param listener 
+     */
     @Override
     public void onCompleted( Run run, TaskListener listener ) {
         listener.getLogger().println( "One Run Listener - OnCompleted" );
     }
-
+    
+    /**
+     * 
+     * @param build
+     * @param launcher
+     * @param listener
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     @Override
     public Environment setUpEnvironment( AbstractBuild build, Launcher launcher, BuildListener listener ) throws IOException, InterruptedException {
         listener.getLogger().println( "One Run Listener - OnSetupEnv" );

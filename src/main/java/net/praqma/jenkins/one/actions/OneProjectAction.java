@@ -25,12 +25,18 @@ package net.praqma.jenkins.one.actions;
 
 
 import hudson.model.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Class implementing actionable and ProminentProjectAction.
+ * 
+ * Prominent project actions means that the plugin will have a footprint on the jobs main page. 
+ * 
+ * The prominent part indicates that it will provide a link with the name specified in the {@link OneProjectAction#getDisplayName()} method.
+ * 
+ * 
+ * 
  * @author Praqma
  */
 public class OneProjectAction extends Actionable implements ProminentProjectAction {
@@ -46,6 +52,12 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
         return super.getActions();
     }
 
+    /**
+     * This method is used to create the text for the link to 'Project Action' link on the Job's
+     * front page.
+     * 
+     * @return the text to be displayed on the project action link page 
+     */
     @Override
     public String getDisplayName() {
         return "One project action";
@@ -56,16 +68,28 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
         return "oneprojectaction";
     }
 
+    /**
+     * If this method returns null, no icon will be used and the link will not be visible
+     */ 
     @Override
     public String getIconFileName() {
         return "/plugin/one-plugin/images/64x64/one-icon.png";
     }
 
+    /**
+     * 
+     * @return the url be be used for this action. This is very useful if you want to use
+     * your plugin in a restful way. More on that later..
+     */
     @Override
     public String getUrlName() {
         return "oneprojectaction";
     }
 
+    /**
+     * 
+     * @return the last build action associated with this project. 
+     */
     public OneBuildAction getLastAction() {
         for( AbstractBuild<?, ?> b = project.getLastCompletedBuild() ; b != null ; b = b.getPreviousBuild() ) {
             OneBuildAction action = b.getAction( OneBuildAction.class );
@@ -77,6 +101,12 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
         return null;
     }
 
+    /**
+     * This method can be used to show the last N results 
+     * 
+     * @param number
+     * @return a List containing a list of Action items picked up during build 
+     */
     public List<List<OneBuildAction.Items>> getItems( int number ) {
         List<List<OneBuildAction.Items>> list = new ArrayList<List<OneBuildAction.Items>>( number );
 

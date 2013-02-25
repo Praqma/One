@@ -1,10 +1,10 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-
+         <!-- Field used for databound constructor, field name (in this case message) must match constructor parameter name -->
          <f:entry field="message" title="Message">
              <f:textbox />
          </f:entry>
-
+         <!-- Field used for databound constructor, field name (in this case remoteOperation) must match constructor parameter name -->
         <f:entry field="remoteOperation" title="Perform on slave">
              <f:checkbox />
         </f:entry>

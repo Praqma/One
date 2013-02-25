@@ -26,36 +26,49 @@ package net.praqma.jenkins.one.build;
 import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
-import hudson.model.AbstractDescribableImpl;
-import hudson.model.AbstractProject;
-import hudson.model.Action;
-import hudson.model.Build;
 import hudson.model.BuildListener;
 import hudson.model.Descriptor;
-import hudson.model.EnvironmentList;
 import hudson.tasks.BuildWrapper;
 import java.io.IOException;
-import java.util.Collection;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
- *
+ * This class wraps all build steps in the Build phase.
+ * 
  * @author Praqma
  */
 public class OneBuildWrapper extends BuildWrapper {
 
+    /**
+     * Required databound constructor.
+     * 
+     */
     @DataBoundConstructor
     public OneBuildWrapper() { }
     
     @Extension 
     public static final class DescriptorImpl extends Descriptor<BuildWrapper> {
 
+        /**
+         * Link text for the checkbox used on the job configuarion page.
+         * @return The text to be displayed for selection.
+         */
         @Override
         public String getDisplayName() {
             return "One Project - OneBuildWrapper";
         }
     }
     
+    /**
+     * Executed before checkout. Executed exactly one time for each build. So if you have 8 build steps in your build phase,
+     * this will only be executed once.
+     * 
+     * @param build the build in progress
+     * @param launcher
+     * @param listener
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     @Override
     public void preCheckout(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
         listener.getLogger().println("In Pre-Checkout - BuildWrapper");
@@ -63,6 +76,16 @@ public class OneBuildWrapper extends BuildWrapper {
     }
 
     
+    /**
+     * Executed after checkout, but before actual build. Executed exactly once regardless of the number of build steps.
+     * 
+     * @param build
+     * @param launcher
+     * @param listener
+     * @return an environment for this build
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     @Override
     public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
         listener.getLogger().println("In Build - BuildWrapper");
