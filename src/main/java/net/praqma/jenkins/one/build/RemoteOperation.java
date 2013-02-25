@@ -24,10 +24,10 @@ public class RemoteOperation implements FilePath.FileCallable<String[]> {
      * 
      * If the File parameter f is null, then this is a local operation (Master). If not, this will get executed on the assigned slave.
      * 
-     * The returned value MUST be serializable {@link Serializable} if the task is ever going be executed remotely.
+     * The returned value MUST be {@link Serializable} if the task is ever going be executed remotely.
      * 
-     * @param f
-     * @param channel
+     * @param f the remote workspace (or null if not remote)
+     * @param channel the remote channel (or null if not remote)
      * @return a String[] containing information about the current OS and the installed java version
      * @throws IOException
      * @throws InterruptedException 

@@ -81,8 +81,9 @@ public class OneRecorder extends Recorder {
     /**
      * Performs the required operations for this build step. The method should generally return true. If some critcal error arises such as
      * not being able to open a required file, it is much better to abort the pipeline by throwing an {@link AbortException}.
-     * 
-     * 
+     *
+     * This very simple reference implementation contains code that checks if the action contains items with the text, you specify when configuring
+     * the {@link OneRecorder} project. 
      * 
      * @param build
      * @param launcher
