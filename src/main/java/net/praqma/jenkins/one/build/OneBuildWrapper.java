@@ -40,7 +40,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 public class OneBuildWrapper extends BuildWrapper {
 
     /**
-     * Required databound constructor.
+     * Required data-bound constructor.
      * 
      */
     @DataBoundConstructor
@@ -77,7 +77,9 @@ public class OneBuildWrapper extends BuildWrapper {
 
     
     /**
-     * Executed after checkout, but before actual build. Executed exactly once regardless of the number of build steps.
+     * Executed after checkout, but before the actual build. Executed exactly once regardless of the number of build steps.
+     * The returned {@link Environment} provides a tear down method to be run after the build phase. If the {@link Environment}
+     * is null, the build is aborted.
      * 
      * @param build
      * @param launcher
