@@ -96,6 +96,7 @@ public class OneBuilder extends Builder {
 
         /**
          * This is where we add our build action to the build.
+         * We only do this if we haven't previously added one.
          */
         OneBuildAction action = build.getAction( OneBuildAction.class );
         if( action == null ) {
@@ -104,7 +105,7 @@ public class OneBuilder extends Builder {
         }
 
         /**
-         * We already have an action added, let's add an item to action
+         * Let's add an item to action
          */
         action.addItems( str[0], str[1], message );
         listener.getLogger().println( "Added items" );
