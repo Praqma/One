@@ -78,8 +78,8 @@ public class OneProjectAction extends Actionable implements ProminentProjectActi
 
     /**
      * 
-     * @return the url be be used for this action. This is very useful if you want to use
-     * your plugin in a restful way. More on that later..
+     * @return the url name used for this action. This is very useful if you want to use
+     * your plugin in a restful way. For example jenkins/job/jobname/action
      */
     @Override
     public String getUrlName() {
