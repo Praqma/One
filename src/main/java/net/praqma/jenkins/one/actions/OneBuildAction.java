@@ -29,8 +29,9 @@ import java.util.List;
 
 /**
  *
- * A class representing an action performed in a build step. These actions are added, and builds can contain 
- * multiple actions of the same type, these build can contain buisness logic, data etc. 
+ * A class representing an action performed in a build step(It can be used in all parts of the build).
+ * These actions are added to the build. These actions can contain business logic, data etc.
+ * Builds can have multiple actions of the same type.
  * 
  * This data can the be extracted for use in the various views that Jenkins offers.
  * 
