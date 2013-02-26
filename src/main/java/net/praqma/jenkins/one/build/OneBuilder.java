@@ -125,14 +125,14 @@ public class OneBuilder extends Builder {
          * This is used to determine if this build step is applicable for your chosen projec type. (FreeStyle, MultiConfiguration, Maven) 
          * Some plugin build steps might be made to be only available to MultiConfiguration projects.
          * 
-         * Required to be override. In our example we require the project to be a free-style project.
+         * Required. In our example we require the project to be a free-style project.
          * 
-         * @param The current project
+         * @param proj The current project
          * @return a boolean indicating whether this build step can be chose given the project type
          */
         @Override
-        public boolean isApplicable(Class<? extends AbstractProject> arg0) {
-            return arg0.isInstance(FreeStyleProject.class);
+        public boolean isApplicable(Class<? extends AbstractProject> proj) {
+            return proj.isInstance(FreeStyleProject.class);
         }
         
         /**
@@ -146,8 +146,8 @@ public class OneBuilder extends Builder {
         }
 
         /**
-         * Not required. We have overriden it here for demonstational purposes, normally all constructor initialization
-         * is performed with the databound constructor, and builder initialization is not needed.
+         * Not required. We have overridden it here to demonstrate its purposes, normally all constructor initialization
+         * is performed with the data-bound constructor, and builder initialization is not needed.
          * 
          * There are instances where you might need to override this method, for example when you want to bind data in a repeatable 
          * section into a list, you can add logic here. I.E using req.bindJSONToList().
