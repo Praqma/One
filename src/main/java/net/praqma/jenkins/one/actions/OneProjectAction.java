@@ -31,11 +31,10 @@ import java.util.List;
 /**
  * Class implementing actionable and ProminentProjectAction.
  * 
- * Prominent project actions means that the plugin will have a footprint on the jobs main page. 
+ * Prominent project actions means that the plugin will have a footprint on the jobs main page.
+ * It also allows us to have a menu item.
  * 
- * The prominent part indicates that it will provide a link with the name specified in the {@link OneProjectAction#getDisplayName()} method.
- * 
- * 
+ * Opposite the build action(or just {@link Action}), the project action is NOT persisted.
  * 
  * @author Praqma
  */
