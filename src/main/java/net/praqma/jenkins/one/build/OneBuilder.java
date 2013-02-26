@@ -62,8 +62,11 @@ public class OneBuilder extends Builder {
     }
 
     /**
-     * Required method when implementing a builder. When this is invoked, it is up to you, as a plugin developer
-     * to add your actions, and/or perform the operations required by your plugin in this build step.
+     * Override this method to get your operation done in the build step. When invoked, it is up to you, as a plugin developer
+     * to add your actions, and/or perform the operations required by your plugin in this build step. Equally, it is up
+     * to the developer to make the code run on the slave(master or an actual remote). This must be done given the builds
+     * workspace, as in build.getWorkspace(). The workspace is the link to the slave, as it is the representation of the
+     * remotes file system.
      *
      * Build steps as you add them to your job configuration are executed sequentially, and the return value for your
      * builder should indicate whether to execute the next build step in the list.
