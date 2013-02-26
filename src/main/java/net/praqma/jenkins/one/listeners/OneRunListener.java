@@ -15,7 +15,6 @@ import java.io.IOException;
  * 
  * @author cwolfgang
  */
-@Extension
 public class OneRunListener extends RunListener<Run> {
 
     /**

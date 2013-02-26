@@ -118,7 +118,6 @@ public class OneBuilder extends Builder {
      * Required static constructor. This is used to create 'One Project Builder' BuildStep in the list-box item on your jobs
      * configuration page. 
      */
-    @Extension
     public static class Descriptor extends BuildStepDescriptor<Builder> {
         
         /**
@@ -132,7 +131,7 @@ public class OneBuilder extends Builder {
          */
         @Override
         public boolean isApplicable(Class<? extends AbstractProject> proj) {
-            return proj.isInstance(FreeStyleProject.class);
+            return proj.isAssignableFrom(FreeStyleProject.class);
         }
         
         /**

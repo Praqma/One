@@ -140,7 +140,6 @@ public class OneRecorder extends Recorder {
     /**
      * Required class with a concrete implementation of the descriptor.
      */
-    @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
 
         /**

@@ -46,7 +46,6 @@ public class OneBuildWrapper extends BuildWrapper {
     @DataBoundConstructor
     public OneBuildWrapper() { }
     
-    @Extension 
     public static final class DescriptorImpl extends Descriptor<BuildWrapper> {
 
         /**
