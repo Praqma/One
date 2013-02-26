@@ -39,10 +39,12 @@ import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * The Builder for our project. We extend from Builder which implements BuildStep,
- * which has a perform method we use.
+ * which has a perform method we will use. Additionally all {@link hudson.tasks.BuildStep}s have a prebuild method to
+ * override, which runs before the build step.
+ *
  * 
  * The main purpose of this example builder is to extract environment information from the executing slaves, and make 
- * this data avaiable for the view we wish to present it in.
+ * this data available for the view we wish to present it in.
  * 
  * During execution we re-use already added actions, and add the discovered data to the already existing build action.
  * 
@@ -58,20 +60,20 @@ public class OneBuilder extends Builder {
         this.message = message;
         this.remoteOperation = remoteOperation;
     }
-    
+
     /**
      * Required method when implementing a builder. When this is invoked, it is up to you, as a plugin developer
      * to add your actions, and/or perform the operations required by your plugin in this build step.
-     * 
+     *
      * Build steps as you add them to your job configuration are executed sequentially, and the return value for your
      * builder should indicate whether to execute the next build step in the list.
-     * 
+     *
      * @param build the current build
      * @param launcher the current launcher
      * @param listener the build listener
      * @return a boolean indicating wheather to proceed with the next buildstep
      * @throws InterruptedException
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
@@ -79,7 +81,7 @@ public class OneBuilder extends Builder {
         listener.getLogger().println("In Build - OneBuilder");
 
         String[] str = null;
-        
+
         //Value [remoteOperation] from build step configuration 'Perform on slave'
         if( remoteOperation ) {
             //Tell jenkins to act upon the current workspace (Can be remote, or local)
@@ -97,7 +99,7 @@ public class OneBuilder extends Builder {
             action = new OneBuildAction();
             build.addAction( action );
         }
-        
+
         /**
          * We already have an action added, let's add an item to action
          */
