@@ -11,6 +11,9 @@ import net.praqma.util.execute.CommandLine;
 /**
  * Class representing a remote file operation. Whenever Jenkins acts() upon it's workspace 
  * the method invoke() is called on the machine executing the job (Either the remote or the master).
+ *
+ * The class can have a constructor with parameters. These parameters are serialized and available
+ * on the remote.
  * 
  * @author cwolfgang
  *         Date: 22-02-13
