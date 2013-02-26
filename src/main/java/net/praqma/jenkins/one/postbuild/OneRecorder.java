@@ -45,15 +45,15 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  *
- * This is a Recorder, which is a Publisher.
+ * This is a {@link Recorder}, which is a {@link Publisher}.
  * 
- * Publisher are BuildSteps performed in the PostBuild phase, they are designed for reporting.
- * Build steps usually involves build and compile, and maybe some rudimentary smoke test of your software.
+ * Publisher are {@link hudson.tasks.BuildStep}s performed in the post build phase. They are designed for reporting.
+ * The build phase usually involves building or compiling, and maybe some rudimentary smoke test of your software.
  * Then in the post build phase you're more likely to perform static analysis of your source code, check for coverage and maybe compiler warnings.
  * 
- * Our example demonstrates in a very simple way how the PostBuild step can be used to set the overall result of a given build.
+ * Our example demonstrates in a very simple way how the post build step can be used to set the overall result of a given build.
  * 
- * Our example recorder requires the user to enter a string, that must be contained as a part build steps in order to be consideres stable.
+ * Our example recorder requires the user to enter a string, that must be contained as a part build steps in order to be considered stable.
  * 
  * @author Praqma
  */
@@ -79,7 +79,7 @@ public class OneRecorder extends Recorder {
     }
     
     /**
-     * Performs the required operations for this build step. The method should generally return true. If some critcal error arises such as
+     * Performs the required operations for this build step. The method should generally return true. If some critical error arises such as
      * not being able to open a required file, it is much better to abort the pipeline by throwing an {@link AbortException}.
      *
      * This very simple reference implementation contains code that checks if the action contains items with the text, you specify when configuring
@@ -154,7 +154,7 @@ public class OneRecorder extends Recorder {
         }
 
         /**
-         * Required method. Needs to be overriden.
+         * Required method. Needs to be overridden.
          * 
          * @return the name to be display in the describable list
          */
