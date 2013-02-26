@@ -8,14 +8,12 @@ import java.io.IOException;
 
 /**
  * 
- * A run listener that looks for builds started across an entire Jenkins instance. The run listener is a singleton,
- * and there is exactly one run listener of each type associated with a given jenkins instance.
+ * A run listener that looks for builds started across an entire Jenkins instance. Multiple instantiations
+ * of {@link RunListener} are allowed. Each instance is run sequentially.
  * 
  * This is extremely useful for writing a plugin that monitors usage of a given plugin for example. 
  * 
  * @author cwolfgang
- *         Date: 22-02-13
- *         Time: 10:15
  */
 @Extension
 public class OneRunListener extends RunListener<Run> {
